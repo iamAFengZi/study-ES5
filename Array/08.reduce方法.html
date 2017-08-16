@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>reduce方法</title>
+</head>
+<body>
+<script>
+  /*
+   * reduce方法与迭代,递归相似
+   *
+   * 基本语法  array.reduce(callback[, initialValue])
+   *
+   * callback函数接受4个参数：之前值、当前值、索引值以及数组本身。initialValue参数可选，表示初始值。若指定，则当作    最初使用的previous值；如果缺省，则使用数组的第一个元素作为previous初始值，同时current往后排一位，相比有          initialValue值少一次迭代。
+   * */
+  
+  //例子
+  var data = [1, 2, 3, 4];
+  var specialDiff = data.reduceRight(function (previous, current, index) {
+    if (index == 0) {
+      return previous + current;
+    }
+    return previous - current;
+  });
+
+  console.log(specialDiff); // 0
+  /*
+  * 说明
+  * // 初始设置
+   index = 3, previous = initialValue = 4, current = 3
+ 
+   // 第一次迭代
+   index = 2, previous = (4- 3) = 1, current = 2
+ 
+   // 第二次迭代
+   index = 1, previous = (1 - 2) = -1, current = 1
+ 
+   // 第三次迭代
+   index = 0, previous = (-1 + 1) = 0, current = undefined (退出)
+  * */
+  
+  // 对于古董浏览器，如IE6-IE8
+  if (typeof Array.prototype.reduceRight != "function") {
+    Array.prototype.reduceRight = function (callback, initialValue ) {
+      var length = this.length, k = length - 1, previous = initialValue;
+      if (typeof initialValue === "undefined") {
+        previous = this[length - 1];
+        k--;
+      }
+      if (typeof callback === "function") {
+        for (k; k > -1; k-=1) {
+          this.hasOwnProperty(k) && (previous = callback(previous, this[k], k, this));
+        }
+      }
+      return previous;
+    };
+  }
+
+</script>
+</body>
+</html>

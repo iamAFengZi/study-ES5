@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>map方法</title>
+</head>
+<body>
+<script>
+  /*
+   * map方法意思就是映射新数组(用法和forEach基本一致)
+   *
+   * 参数: callback [function]
+   *
+   * 基本语法  array.map(callback,[ thisObject]);
+   * */
+  //function回调支持3个参数，第1个是遍历的数组内容；第2个是对应的数组索引，第3个是数组本身。
+  [].map(function(value, index, array) {
+    // ...
+  });
+
+  //map方法中的callback必须要有return值,所有return的值会添加到一个新的数组中
+  //实例1
+  var data = [1, 2, 3, 4];
+  var arrayOfSquares = data.map(function (item) {
+    return item * item;
+  });
+  
+  alert(arrayOfSquares);
+  
+  // 对于古董浏览器，如IE6-IE8
+  if (typeof Array.prototype.map != "function") {
+    Array.prototype.map = function (fn, context) {
+      var arr = [];
+      if (typeof fn === "function") {
+        for (var k = 0, length = this.length; k < length; k++) {
+          arr.push(fn.call(context, this[k], k, this));
+        }
+      }
+      return arr;
+    };
+  }
+
+
+</script>
+</body>
+</html>

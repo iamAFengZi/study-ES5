@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>lastIndexOf方法</title>
+</head>
+<body>
+<script>
+  /*
+   * lastIndexOf方法与indexOf方法类似
+   *
+   * array.lastIndexOf(searchElement[, fromIndex])
+   *
+   * 从数组的末尾开始查找,返回整数索引值，如果没有匹配（严格匹配），返回-1.
+   * */
+  
+  // 对于古董浏览器，如IE6-IE8
+  if (typeof Array.prototype.lastIndexOf != "function") {
+    Array.prototype.lastIndexOf = function (searchElement, fromIndex) {
+      var index = -1, length = this.length;
+      fromIndex = fromIndex * 1 || length - 1;
+    
+      for (var k = length - 1; k > -1; k-=1) {
+        if (k <= fromIndex && this[k] === searchElement) {
+          index = k;
+          break;
+        }
+      }
+      return index;
+    };
+  }
+
+</script>
+</body>
+</html>

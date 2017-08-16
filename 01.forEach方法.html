@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>forEach方法</title>
+</head>
+<body>
+<script>
+  /*
+  * forEach方法就是遍历,循环
+  *
+  * 参数: callback [function]
+  *
+  * 基本语法 array.forEach(callback,[ thisObject])
+  * */
+  //function回调支持3个参数，第1个是遍历的数组内容；第2个是对应的数组索引，第3个是数组本身。
+  [].forEach(function(value, index, array) {
+    // ...
+  });
+  
+  //例1 以下两种表述方式相等
+  [1, 2 ,3, 4].forEach(alert);
+  
+  var array = [1, 2, 3, 4];
+  for (var k = 0, length = array.length; k < length; k++) {
+    alert(array[k]);
+  }
+  
+  // 对于古董浏览器，如IE6-IE8
+  if (typeof Array.prototype.forEach != "function") {
+    Array.prototype.forEach = function (fn, context) {
+      for (var k = 0, length = this.length; k < length; k++) {
+        if (typeof fn === "function" && Object.prototype.hasOwnProperty.call(this, k)) {
+          fn.call(context, this[k], k, this);
+        }
+      }
+    };
+  }
+  
+  
+</script>
+</body>
+</html>

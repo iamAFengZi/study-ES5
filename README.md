@@ -1,1 +1,1 @@
-#学习ECMAScript 5
+学习ECMAScript 5
